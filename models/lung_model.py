@@ -5,7 +5,7 @@ from tensorflow.keras.models import load_model # type: ignore
 from tensorflow.keras.preprocessing import image # type: ignore
 
 # Load your trained model once when the app starts
-model = load_model('lung_cancer_model.h5')  # adjust path to your model
+model = load_model('models/lung_cancer_model.h5')  # adjust path to your model
 
 # Image dimensions expected by your model (change if different)
 IMG_WIDTH = 224

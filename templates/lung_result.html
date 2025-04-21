@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lung Cancer Prediction Result</title>
+    <title>Lung Cancer Prediction Results</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -27,14 +27,18 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             display: inline-block;
+            max-width: 700px;
         }
-        img {
+        .result-item {
+            margin-bottom: 2rem;
+        }
+        .result-item img {
             max-width: 300px;
             margin-bottom: 1rem;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        h3 {
+        h2, h3 {
             color: #007bff;
         }
     </style>
@@ -49,10 +53,14 @@
     </nav>
 
     <div class="result-box">
-        <h2>Prediction Result</h2>
-        <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Report">
-        <h3>AI Observation:</h3>
-        <p><strong>{{ result }}</strong></p>
+        <h2>Prediction Results</h2>
+        {% for filename, result in results %}
+        <div class="result-item">
+            <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Report">
+            <h3>{{ filename }}</h3>
+            <p><strong>{{ result }}</strong></p>
+        </div>
+        {% endfor %}
     </div>
 </body>
 </html>

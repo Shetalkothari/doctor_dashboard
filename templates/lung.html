@@ -18,7 +18,6 @@
             display: flex;
             justify-content: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            animation: slideIn 1s ease forwards;
         }
         nav a {
             color: white;
@@ -30,10 +29,6 @@
         nav a:hover {
             color: #ffc107;
         }
-        @keyframes slideIn {
-            0% { transform: translateY(-100%); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
         h2 {
             color: #007bff;
             text-align: center;
@@ -43,7 +38,7 @@
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            max-width: 500px;
+            max-width: 600px;
             margin: 2rem auto;
         }
         input[type="file"] {
@@ -59,6 +54,17 @@
             cursor: pointer;
             margin-top: 1rem;
         }
+        #preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        #preview img {
+            max-width: 150px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
@@ -72,13 +78,33 @@
 
     <h2>Lung Cancer Detection</h2>
     <p style="text-align:center; max-width:600px; margin:auto">
-        Upload a chest X-ray or lung scan image to evaluate potential signs of lung cancer.
-        Our AI model will analyze the image and provide predictions based on medical patterns.
+        Upload chest X-ray or lung scan images to evaluate potential signs of lung cancer.
+        Our AI model will analyze each image and provide predictions.
     </p>
+
     <form action="/predict/lung-cancer" method="POST" enctype="multipart/form-data">
-        <label for="image">Choose a report image:</label>
-        <input type="file" name="image" id="image" required>
+        <label for="image">Choose report images:</label>
+        <input type="file" name="images" id="image" multiple required>
+        <div id="preview"></div>
         <input type="submit" value="Submit">
     </form>
+
+    <script>
+        document.getElementById('image').addEventListener('change', function(event) {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '';
+            const files = event.target.files;
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
 </body>
 </html>

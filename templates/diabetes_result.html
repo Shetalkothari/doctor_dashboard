@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diabetes Prediction Results</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fbff;
+            margin: 0;
+            padding: 2rem;
+            color: #333;
+        }
+        nav {
+            background-color: #007bff;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+        .results {
+            max-width: 800px;
+            margin: auto;
+            margin-top: 2rem;
+        }
+        .result {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+        .prediction {
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/dashboard">Home</a>
+    <a href="/diabetes">Diabetes</a>
+    <a href="/breast-cancer">Breast Cancer</a>
+    <a href="/lung-cancer">Lung Cancer</a>
+    <a href="/logout">Logout</a>
+</nav>
+
+<h2>Prediction Results</h2>
+
+<div class="results">
+    {% for item in predictions %}
+    <div class="result">
+        <p><strong>Input:</strong> {{ item.input }}</p>
+        <p class="prediction">Predicted Risk: {{ item.prediction }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

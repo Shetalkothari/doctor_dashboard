@@ -18,7 +18,6 @@
             display: flex;
             justify-content: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            animation: slideIn 1s ease forwards;
         }
         nav a {
             color: white;
@@ -30,10 +29,6 @@
         nav a:hover {
             color: #ffc107;
         }
-        @keyframes slideIn {
-            0% { transform: translateY(-100%); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
         h2 {
             color: #007bff;
             text-align: center;
@@ -43,7 +38,7 @@
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            max-width: 500px;
+            max-width: 600px;
             margin: 2rem auto;
         }
         input[type="file"] {
@@ -59,6 +54,18 @@
             cursor: pointer;
             margin-top: 1rem;
         }
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .preview-container img {
+            max-width: 150px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
@@ -72,13 +79,31 @@
 
     <h2>Breast Cancer Detection</h2>
     <p style="text-align:center; max-width:600px; margin:auto">
-        Upload the patient’s scan or report image to assess potential breast cancer indicators.
-        The AI system will process the image and return a detailed prediction.
+        Upload one or more scans or reports. Our AI model will analyze each image and return predictions.
     </p>
     <form action="/predict/breast" method="POST" enctype="multipart/form-data">
-        <label for="image">Choose a report image:</label>
-        <input type="file" name="image" id="image" required>
+        <label for="images">Choose report images:</label>
+        <input type="file" name="images" id="images" multiple required accept="image/*">
+        <div class="preview-container" id="preview"></div>
         <input type="submit" value="Submit">
     </form>
+
+    <script>
+        const input = document.getElementById('images');
+        const preview = document.getElementById('preview');
+
+        input.addEventListener('change', () => {
+            preview.innerHTML = '';
+            Array.from(input.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
 </body>
 </html>

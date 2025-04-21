@@ -1,10 +1,11 @@
 import os
+import pandas as pd
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
-from lung_model import predict_lung_cancer
-from werkzeug.utils import secure_filename
 
+from werkzeug.security import generate_password_hash, check_password_hash
+from models.lung_model import predict_lung_cancer
+from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
@@ -85,6 +86,35 @@ def diabetes():
         return redirect(url_for('login'))
     return render_template('diabetes.html', username=session['username'])
 
+@app.route('/predict/diabetes', methods=['POST'])
+def predict_diabetes():
+    data_text = request.form.get('data')
+    file = request.files.get('file')
+
+    patient_data = []
+
+    if file and file.filename.endswith('.csv'):
+        df = pd.read_csv(file)
+        patient_data = df.values.tolist()
+    elif data_text:
+        try:
+            # Support comma-separated single-row CSV
+            values = [float(x.strip()) for x in data_text.split(',')]
+            patient_data = [values]
+        except:
+            return "Invalid input format. Please use CSV row like: 140, 33.6, 50,..."
+
+    predictions = []
+    for row in patient_data:
+        # Dummy prediction logic (replace with your model)
+        risk = "High" if sum(row) > 200 else "Low"
+        predictions.append({
+            'input': row,
+            'prediction': risk
+        })
+
+    return render_template("diabetes_result.html", predictions=predictions)
+
 @app.route('/lung-cancer')
 def lung():
     if 'user_id' not in session:
@@ -92,31 +122,32 @@ def lung():
         return redirect(url_for('login'))
     return render_template('lung.html', username=session['username'])
 
-@app.route('/predict/lung-cancer', methods=['POST'])
-def predict_lung():
-    if 'image' not in request.files:
-        flash("No file part", "error")
-        return redirect(request.url)
-    
-    file = request.files['image']
-    if file.filename == '':
-        flash("No selected file", "error")
-        return redirect(request.url)
-    
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
+@app.route('/predict/lung-cancer', methods=['GET', 'POST'])
+def predict_lung_cancer_route():
+    if request.method == 'POST':
+        if 'images' not in request.files:
+            return "No file part", 400
 
-        # Here you can load the image and pass it to your ML model
-        # result = predict_lung_cancer(filepath)
-        # result = "Sample Result: No signs of lung cancer detected."
-        result = predict_lung_cancer(filepath)
+        files = request.files.getlist('images')
+        results = []
 
-        return render_template('lung_result.html', filename=filename, result=result)
+        for file in files:
+            if file.filename == '':
+                continue
 
-    flash("Invalid file format", "error")
-    return redirect(url_for('lung_cancer'))  # redirect to the lung cancer page
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+
+            # Run your model prediction here
+            prediction = predict_lung_cancer(filepath)
+            results.append((filename, prediction))
+
+        return render_template('lung_result.html', results=results)
+
+    return render_template('lung.html')
+
+
 
 @app.route('/breast')
 def breast():
@@ -124,6 +155,28 @@ def breast():
         flash("Please log in first", "error")
         return redirect(url_for('login'))
     return render_template('breast.html', username=session['username'])
+
+@app.route('/predict/breast', methods=['POST'])
+def predict_breast():
+    files = request.files.getlist('images')
+    predictions = []
+
+    for file in files:
+        if file:
+            filename = secure_filename(file.filename)
+            filepath = os.path.join('static/uploads', filename)
+            file.save(filepath)
+
+            # Dummy prediction logic (replace with your model's actual prediction)
+            prediction = "Benign" if "1" in filename else "Malignant"
+
+            predictions.append({
+                'filename': filename,
+                'filepath': filepath,
+                'prediction': prediction
+            })
+
+    return render_template('breast_result.html', predictions=predictions)
 
 @app.route('/logout')
 def logout():

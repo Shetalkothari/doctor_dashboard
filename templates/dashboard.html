@@ -1,4 +1,3 @@
-<!-- Base HTML Template for Flask Dashboard - Light Theme with Blue Accents -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EM Care Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
         body {
             margin: 0;
@@ -37,10 +37,11 @@
         .section-title {
             font-size: 1.5rem;
             margin-bottom: 1rem;
+            text-align: center;
         }
         .cards {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -48,7 +49,7 @@
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 1rem;
+            padding: 1.5rem 1rem;
             width: 300px;
             text-align: center;
             transition: transform 0.3s;
@@ -56,10 +57,8 @@
         .card:hover {
             transform: scale(1.03);
         }
-        .news-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        lottie-player {
+            margin: 0 auto 1rem;
         }
         .news-card img {
             width: 100%;
@@ -80,7 +79,7 @@
         <nav>
             <a href="/dashboard">Home</a>
             <a href="/diabetes">Diabetes</a>
-            <a href="/lung">Lung Nodules</a>
+            <a href="/lung-cancer">Lung Nodules</a>
             <a href="/breast">Breast Cancer</a>
             <a href="/about">About Us</a>
         </nav>
@@ -95,15 +94,15 @@
         <div class="section-title">Why this AI machine is reliable?</div>
         <div class="cards">
             <div class="card">
-                <img src="https://lottie.host/animated1.json" alt="AI animation" width="100">
+                <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_49rdyysj.json" background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay></lottie-player>
                 <p>Trained on 100,000+ verified cases</p>
             </div>
             <div class="card">
-                <img src="https://lottie.host/animated2.json" alt="AI animation" width="100">
+                <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json" background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay></lottie-player>
                 <p>Real-time prediction under 3 seconds</p>
             </div>
             <div class="card">
-                <img src="https://lottie.host/animated3.json" alt="AI animation" width="100">
+                <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_gn0tojcq.json" background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay></lottie-player>
                 <p>Accuracy tested by top professionals</p>
             </div>
         </div>
@@ -113,17 +112,16 @@
         <div class="section-title">Health News in Focus</div>
         <div class="cards">
             <div class="card news-card">
-                <img src="https://source.unsplash.com/300x200/?hospital,doctor" alt="news">
+                <img src="https://images.unsplash.com/photo-1588776814546-7aafc2f51c14?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="news">
                 <p>New diabetes drug shows 80% success in early trials.</p>
                 <div class="graph"></div>
             </div>
             <div class="card news-card">
-                <img src="https://source.unsplash.com/300x200/?cancer,lab" alt="news">
+                <img src="https://images.unsplash.com/photo-1603399861302-7aafc2f51c14?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="news">
                 <p>AI detection of lung cancer now rivals radiologists.</p>
                 <div class="graph"></div>
             </div>
         </div>
     </div>
-
 </body>
 </html>

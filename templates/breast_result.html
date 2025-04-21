@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diabetes Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            padding: 2rem;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            text-align: center;
+            color: #007bff;
+        }
+        table.data {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        table.data th, table.data td {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+        }
+        ul {
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Diabetes Prediction Result</h2>
+
+    {% if tables %}
+        {{ tables[0]|safe }}
+    {% endif %}
+
+    <h3>Predictions:</h3>
+    <ul>
+        {% for result in predictions %}
+            <li>{{ loop.index }}: {{ result }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/diabetes">Back to Upload</a>
+</body>
+</html>

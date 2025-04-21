@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# macOS
+.DS_Store
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# TensorFlow/keras model checkpoints
+*.h5
+*.ckpt
+
+# VSCode
+.vscode/
+
+# Python specific
+*.log
+*.sqlite3
+*.db
+*.pkl
+
+# Flask cache
+instance/
+*.pyc
+*.pyo
+
+# Uploaded images
+uploads/
