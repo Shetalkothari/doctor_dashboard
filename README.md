@@ -6,6 +6,13 @@ Welcome to the **Doctor Dashboard**, a Flask-based web application for disease p
 - Breast Cancer (Image-based)
 - Diabetes (CSV/Text input-based)
 
+## 🚀 Tech Stack
+
+- **Python + Flask** – Backend framework
+- **HTML/CSS** – Frontend structure and styling
+- **SQLite + SQLAlchemy** – Database ORM
+- **GitHub** – Version control and collaboration
+
 ---
 
 ## 🚀 Getting Started
