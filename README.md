@@ -1,24 +1,92 @@
-# 🩺 Doctor Dashboard
+# 🩺 Doctor Dashboard - AI Disease Prediction
 
-A web application that allows doctors to log in, sign up, and predict diseases using machine learning models from uploaded images.
+Welcome to the **Doctor Dashboard**, a Flask-based web application for disease prediction using AI models. It supports predictions for:
 
-## 🔧 Features
+- Lung Cancer (Image-based)
+- Breast Cancer (Image-based)
+- Diabetes (CSV/Text input-based)
 
-- ✅ User login/signup with secure password hashing
-- 🧠 Upload medical images for ML-based disease prediction *(coming soon)*
-- 🖥️ Clean user interface with navigation bar
+---
 
-## 🚀 Tech Stack
+## 🚀 Getting Started
 
-- **Python + Flask** – Backend framework
-- **HTML/CSS** – Frontend structure and styling
-- **SQLite + SQLAlchemy** – Database ORM
-- **GitHub** – Version control and collaboration
+### ✅ 1. Prerequisites
+Make sure these tools are installed:
 
-## 🛠️ How to Run
+- Python 3.7+
+- Git
+- pip (Python package installer)
 
-1. Clone the repo:
-
+### ✅ 2. Clone the Repository
 ```bash
 git clone https://github.com/shetalkothari/doctor_dashboard.git
 cd doctor_dashboard
+```
+
+### ✅ 3. Create a Virtual Environment (Recommended)
+```bash
+python3 -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+```
+
+### ✅ 4. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+If `requirements.txt` is not available, install manually:
+```bash
+pip install flask pandas matplotlib
+```
+(Add more packages if used)
+
+### ✅ 5. Prepare the Folder Structure
+Ensure the following structure exists:
+
+```
+doctor_dashboard/
+├── static/
+├── templates/
+├── uploads/             # Create manually if missing
+├── app.py               # Main Flask file
+├── requirements.txt
+```
+
+Create `uploads` folder if missing:
+```bash
+mkdir uploads
+```
+
+### ✅ 6. Run the Application
+```bash
+python app.py
+```
+
+Visit: [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your browser.
+
+### ✅ 7. Stop the Server
+Use `Ctrl + C` in terminal to stop the app.
+
+---
+
+## 📁 Features
+- Clean and interactive dashboard
+- Real-time prediction feedback
+- Multi-image upload for lung and breast cancer
+- CSV-based input for diabetes
+- Graphs & insights for predictions
+
+---
+
+## 🤝 Contributing
+Pull requests are welcome. For major changes, please open an issue first.
+
+---
+
+## 📄 License
+MIT License - free to use, modify, and distribute.
+
+---
+
+**Made with ❤️ for medical professionals**
+
